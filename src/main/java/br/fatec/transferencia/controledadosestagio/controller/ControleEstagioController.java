@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.fatec.transferencia.controledadosestagio.form.ControleEstagioRegistroForm;
-import br.fatec.transferencia.controledadosestagio.model.Estagios;
-import br.fatec.transferencia.controledadosestagio.service.AgenteIntegradorService;
 import br.fatec.transferencia.controledadosestagio.service.AlunoService;
-import br.fatec.transferencia.controledadosestagio.service.ControleEstagioService;
-import br.fatec.transferencia.controledadosestagio.service.EmpresaService;
-import br.fatec.transferencia.controledadosestagio.service.TipoDocumentoService;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import br.fatec.transferencia.controledadosestagio.mo
+
 
 
 @RestController
@@ -25,38 +24,17 @@ import br.fatec.transferencia.controledadosestagio.service.TipoDocumentoService;
 public class ControleEstagioController {
 	
 	@Autowired
-	ControleEstagioService controleEstagioService;
-	
-	@Autowired
-	EmpresaService empresaService; 
-	
-	@Autowired
-	TipoDocumentoService tipoDocumentoService;
-	
-	@Autowired
 	AlunoService alunoService;
 	
-	@Autowired
-	AgenteIntegradorService agenteIntegradorService;
 	
-	@PostMapping
-	public ResponseEntity<?> cadastrar(@Valid @RequestBody ControleEstagioRegistroForm form){
-		
-		
-		if (form.getRa() != null) {
-			
-			Estagios estagios = form.converter(controleEstagioService, empresaService, tipoDocumentoService, alunoService, agenteIntegradorService );
-			
-			controleEstagioService.cadastrar(estagios);
-			System.out.println("Inserido no banco de dados");
-			
-		}
-		
-		return ResponseEntity.ok().build();
-		
-		
-	}	
+	@GetMapping("/alunos")
+    public ResponseEntity<List<AlunoListModel>> getListaAlunos() {
+        List<Aluno> alunos = alunoService.listarAlunos(); // Método no service para buscar os alunos
+        List<AlunoListModel> alunosDto = alunos.stream()
+                .map(AlunoListModel::new) // Converte Aluno para AlunoListModel
+                .collect(Collectors.toList());
 
+        return ResponseEntity.ok(alunosDto);
+    }
 	
-
 }

@@ -2,7 +2,7 @@ package br.fatec.transferencia.controledadosestagio.model;
 
 import java.io.Serializable;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,22 +24,18 @@ public class Aluno implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	private String ra;
-	
-	private String curso;
-	
-	private String nomeAluno;
-	
-	private String semestre;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-	public Aluno(String ra) {
+    @Column(name = "nome_do_aluno", nullable = false)
+    private String nomeDoAluno;
 
-		this.ra = ra;
-
-	}
+    private String email;
+    private String ra;
+    private String curso;
+    private String status;
+    private String modalidade;
+    private String telefone;
 	
 	
 }

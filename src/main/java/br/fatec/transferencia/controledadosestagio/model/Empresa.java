@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Column;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name= "cadastro_empresa")
+@Table(name= "empresa")
 public class Empresa  implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -28,26 +29,16 @@ public class Empresa  implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private String razaoSocial;
-	
-	private String statusSistema;
+	@Column(name = "nome_empresa", nullable = false)
+	private String nomeEmpresa;
 
 	private String cnpj;
-	
-	private LocalDate dataCadastro;
-	
-	private String telefone;
-	
-	private String email;
-	
+
 	private String endereco;
-	
-	private String contato; 
-			
-	public Empresa(String cnpj) {
-		
-		this.cnpj = cnpj;
-	}
+
+	private String local;
+
+	private String estado;
 	
 
 }
